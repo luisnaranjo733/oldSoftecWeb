@@ -1,37 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Softec Systems</title>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <title>Softec Systems</title>
 
-    <script src="/static/bower_components/angular/angular.min.js"></script>
+        <script src="/static/bower_components/angular/angular.min.js"></script>
 
-    <!-- Bootstrap -->
-    <link href="/static/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/static/main.css" rel="stylesheet">
+        <!-- Bootstrap -->
+        <link href="/static/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/static/main.css" rel="stylesheet">
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
-  {% verbatim %}
-  <body ng-app="softecApp">
-    <h1>Hello, world!</h1>
-    <div ng-controller="softecCtrl">
-        <p>Once upon a time there was a {{ adjective }} {{ firstNoun }}</p>
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+            <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
 
-    </div>
+    <body ng-app="softecApp">
+        <h1>Hello, world!</h1>
+        <a href="/admin">Admin</a>
+        <a href="/orders/createOrder">Create order</a>
+        <a href="/orders/addToOrder">Add to order</a>
+        <div ng-controller="softecCtrl">
+            <p>Once upon a time there was a {[{ adjective }]} {[{ firstNoun }]}</p>
+            <form action="/orders/createOrder" method="POST"> {% csrf_token %}
+                First name: <input type="text" name="fname"><br>
+                Last name: <input type="text" name="lname"><br>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
 
 
-    <script src="/static/app.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="/static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-  </body>
-  {% endverbatim %}
+        <script src="/static/app.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="/static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    </body>
+
 </html>
