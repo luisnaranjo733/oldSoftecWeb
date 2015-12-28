@@ -24,8 +24,8 @@ class Customer(models.Model):
         return '%s (%s)' % (self.userID.username.capitalize(), self.restaurantID.name.capitalize())
 
 class Customer_Restaurant(models.Model):
-    CustomerID = models.ForeignKey(Customer)
-    RestaurantID = models.ForeignKey(Restaurant)
+    customerID = models.ForeignKey(Customer)
+    cestaurantID = models.ForeignKey(Restaurant)
 
     def __str__(self):
         return '<Customer_Restaurant>'
@@ -38,8 +38,17 @@ class SalesOrder(models.Model):
     def __str__(self):
         return '<SalesOrder: (%s, %s)>' % (self.pk, self.customerID.userID.username)
 
+class ProductInventory(models.Model):
+    productID = models.OneToOneField('Product', related_name='productInventoryID')
+    quantity = models.IntegerField()
+
+    def __str__(self):
+        return '<ProductInventory: %s (%d)>' % (self.productID.name, self.quantity)
+
 class Product(models.Model):
-    name =  models.CharField(max_length=200)
+    #  replaced with OneToOneField()
+    #ProductInventoryID = models.ForeignKey(ProductInventory)
+    name =  models.CharField(max_length=200, unique=True)
     purchasePrice = models.DecimalField(max_digits=6, decimal_places=2)
     salesPrice = models.DecimalField(max_digits=6, decimal_places=2)
 
@@ -53,14 +62,6 @@ class Product(models.Model):
         associative_entry = Vendor_Product.objects.get(productID=self)
         if associative_entry:
             return associative_entry.vendorID
-
-
-class ProductInventory(models.Model):
-    productID = models.ForeignKey(Product)
-    quantity = models.IntegerField()
-
-    def __str__(self):
-        return '<ProductInventory: %s (%d)>' % (self.productID.name, self.quantity)
 
 class SalesOrder_Product(models.Model):
     salesOrderID = models.ForeignKey(SalesOrder)
@@ -91,9 +92,15 @@ class PurchaseOrder(models.Model):
     def __str__(self):
         return '<PurchaseOrder: %d>' % self.pk
 
+class PurchaseOrderInvoice(models.Model):
+    purchaseOrderID = models.OneToOneField(PurchaseOrder, related_name='purchaseOrderInvoiceID')
+    orderSubmittedDate = models.DateTimeField()
+    orderPaidDate = models.DateTimeField()
+    orderDueDate = models.DateField()
+
 class PurchaseOrder_Product(models.Model):
-    PurchaseOrderID = models.ForeignKey(PurchaseOrder)
-    ProductID = models.ForeignKey(Product)
+    purchaseOrderID = models.ForeignKey(PurchaseOrder)
+    productID = models.ForeignKey(Product)
     quantity = models.IntegerField()
 
     def __str__(self):
@@ -105,5 +112,13 @@ class PurchaseOrder_Product(models.Model):
 app_models = [
     Staff, Restaurant, Customer, Customer_Restaurant, SalesOrder, Product,
     ProductInventory, SalesOrder_Product, Vendor, Vendor_Product,
-    PurchaseOrder, PurchaseOrder_Product
+    PurchaseOrder, PurchaseOrderInvoice, PurchaseOrder_Product
 ]
+
+'''
+Stored procedures
+* Submitting a PurchaseOrder
+    - Increment all related product inventory
+* Submitting a SalesOrder
+    - Decrement all related product inventory
+'''

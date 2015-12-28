@@ -25,24 +25,4 @@ def showProduct(request, product_id):
     }
     return render(request, 'product.html', context)
 
-@login_required
-def createOrder(request):
-    if request.method == 'POST':
-        customer = Customer.objects.filter(user=request.user).first()
-        order = Order()
-        order.customer = customer
-        order.save()
-        return JsonResponse({
-                'id': order.id,
-                'customer': {
-                    'username': order.customer.user.username,
-                    'id': order.customer.user.id
-                }
-            })
-    else:
-        raise Http404
-
-@login_required
-def addToOrder(request):
-    return HttpResponse('adding to order')
 

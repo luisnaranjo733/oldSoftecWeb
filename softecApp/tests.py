@@ -35,5 +35,8 @@ class Vendor_ProductTests(TestCase):
 class PurchaseOrderTests(TestCase):
     pass
 
+class PurchaseOrderInvoiceTests(TestCase):
+    pass
+
 class PurchaseOrder_ProductTests(TestCase):
     pass

@@ -2,15 +2,4 @@
 
         {% block body %}
         <h1>Hello, world!</h1>
-        <a href="/admin">Admin</a>
-        <a href="/orders/createOrder">Create order</a>
-        <a href="/orders/addToOrder">Add to order</a>
-        <div ng-controller="softecCtrl">
-            <p>Once upon a time there was a {[{ adjective }]} {[{ firstNoun }]}</p>
-            <form action="/orders/createOrder" method="POST"> {% csrf_token %}
-                First name: <input type="text" name="fname"><br>
-                Last name: <input type="text" name="lname"><br>
-                <input type="submit" value="Submit">
-            </form>
-        </div>
         {% endblock body %}
