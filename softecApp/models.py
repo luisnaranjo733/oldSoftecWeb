@@ -40,6 +40,8 @@ class SalesOrder(models.Model):
 
 class Product(models.Model):
     name =  models.CharField(max_length=200)
+    purchasePrice = models.DecimalField(max_digits=6, decimal_places=2)
+    salesPrice = models.DecimalField(max_digits=6, decimal_places=2)
 
     def __str__(self):
         return '<Product: %s>' % self.name
