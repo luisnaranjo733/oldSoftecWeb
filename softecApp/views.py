@@ -6,14 +6,18 @@ from django.contrib.auth.decorators import login_required
 from softecApp.models import Staff, Restaurant, Customer, Order, Product, OrderProduct
 
 def index(request):
-    context = {
-        'test': 'Hello, World!'
-    }
+    context = {}
     return render(request, 'softecApp/index.html', context)
 
 def logOut(request):
     logout(request)
     return redirect('index')
+
+def viewOrders(request):
+    context = {
+        'orders': Order.objects.all()
+    }
+    return render(request, 'softecApp/orders.html', context)
 
 @login_required
 def createOrder(request):
