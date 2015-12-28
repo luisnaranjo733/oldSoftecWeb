@@ -17,7 +17,15 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 
+from softecApp import views
+
 urlpatterns = [
-    url(r'^', include('softecApp.urls')),
+    # url(r'^', include('softecApp.urls')),
+    url(r'^$', views.index, name='index'),
+    url(r'^logout$', views.logOut, name='logOut'),
+    url(r'^products$', views.listProducts, name='listProducts'),
+    url(r'^products/(?P<product_id>[0-9]+)/$', views.showProduct, name='showProduct'),
+    url(r'^orders/createOrder$', views.createOrder, name='createOrder'),
+    url(r'^orders/addToOrder$', views.addToOrder, name='addToOrder'),
     url(r'^admin/', admin.site.urls, name="admin"),
 ]

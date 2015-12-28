@@ -44,6 +44,9 @@ class Product(models.Model):
     def __str__(self):
         return '<Product: %s>' % self.name
 
+    def get_absolute_url(self):
+        return '/products/%d' % self.id
+
     def getVendor(self):
         associative_entry = Vendor_Product.objects.get(productID=self)
         if associative_entry:
