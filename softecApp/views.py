@@ -3,7 +3,7 @@ from django.http import HttpResponse, JsonResponse, Http404
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 
-from softecApp.models import Staff, Restaurant, Customer, Order, Product, OrderProduct
+from softecApp.models import *
 
 def index(request):
     context = {}

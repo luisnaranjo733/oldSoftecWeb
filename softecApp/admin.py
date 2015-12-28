@@ -1,7 +1,6 @@
 from django.contrib import admin
 
-from .models import Staff, Restaurant, Customer, Order, Product, OrderProduct
+from .models import app_models
 
-models = [Staff, Restaurant, Customer, Order, Product, OrderProduct]
-for model in models:
+for model in app_models:
     admin.site.register(model)
